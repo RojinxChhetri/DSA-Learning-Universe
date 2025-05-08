@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Learning Universe</title> <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-gray-900">
+    <div class="container mx-auto p-4 md:p-6 min-h-screen flex flex-col">
+        <header class="bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-700 text-white p-6 md:p-8 rounded-2xl shadow-xl mb-8"> 
+            <h1 class="text-4xl md:text-5xl font-bold text-center tracking-tight comic-text">DSA Learning Universe</h1> <p class="text-center text-indigo-100 mt-2 text-md md:text-lg comic-text font-normal">Unlock the Secrets of Sorting Algorithms!</p>
+        </header>
+
+        <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 flex-grow main-content-area">
+            
+            <aside class="lg:w-1/3 xl:w-1/4 flex-shrink-0 space-y-5 p-5 bg-white rounded-xl shadow-lg border border-slate-200 self-start"> 
+                <div>
+                    <label for="algorithm-select" class="input-label">Choose Your Sorting Quest:</label>
+                    <select id="algorithm-select" class="text-input">
+                        <option value="bubbleSort">Bubble Sort</option>
+                        <option value="selectionSort">Selection Sort</option>
+                        <option value="insertionSort">Insertion Sort</option>
+                        <option value="quickSort">Quick Sort (First Pivot)</option>
+                        <option value="mergeSort">Merge Sort</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="array-input" class="input-label">Your Items (Comma-separated):</label>
+                    <input type="text" id="array-input" class="text-input" placeholder="e.g., 42,8,15 or Z,A,M">
+                </div>
+                
+                 <div class="space-y-3 pt-3 border-t border-slate-200">
+                    <label class="input-label">Generate an Array:</label>
+                    <div class="flex items-center gap-3">
+                         <label for="array-size-input" class="text-sm font-medium text-gray-600 comic-text flex-shrink-0">Size:</label>
+                         <input type="number" id="array-size-input" value="12" min="5" max="25" class="number-input w-full text-center">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="gen-random-btn" class="control-button array-gen-button comic-text"><i class="fas fa-dice"></i>Random</button>
+                        <button id="gen-nearly-sorted-btn" class="control-button array-gen-button comic-text"><i class="fas fa-stream"></i>Nearly Sorted</button>
+                        <button id="gen-reversed-btn" class="control-button array-gen-button comic-text"><i class="fas fa-history"></i>Reversed</button>
+                        <button id="gen-few-unique-btn" class="control-button array-gen-button comic-text"><i class="fas fa-layer-group"></i>Few Unique</button>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-200">
+                    <label class="input-label">What Kind of Items?</label>
+                    <div class="flex items-center space-x-4 mt-1.5">
+                        <label class="flex items-center cursor-pointer p-2 rounded-md hover:bg-slate-100 transition-colors border border-transparent has-[:checked]:border-indigo-400 has-[:checked]:bg-indigo-50">
+                            <input type="radio" name="dataType" value="numbers" class="form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" checked>
+                            <span class="ml-2 text-sm text-gray-700 font-medium">🔢 Numbers</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer p-2 rounded-md hover:bg-slate-100 transition-colors border border-transparent has-[:checked]:border-indigo-400 has-[:checked]:bg-indigo-50">
+                            <input type="radio" name="dataType" value="characters" class="form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                            <span class="ml-2 text-sm text-gray-700 font-medium">🔡 Letters</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="pt-3 border-t border-slate-200">
+                    <label for="speed-control" class="input-label">Animation Speed:</label>
+                    <input type="range" id="speed-control" min="50" max="3000" value="1000" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75">
+                    <div class="text-xs text-gray-500 text-center mt-1 comic-text font-normal">Pace: <span id="speed-value">1000</span>ms</div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-200">
+                     <button id="visualize-btn" class="control-button text-md"><i class="fas fa-play-circle"></i>Go!</button>
+                     <button id="reset-btn" class="control-button text-md"><i class="fas fa-power-off"></i>Reset</button> 
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <button id="pause-resume-btn" class="control-button text-md" disabled><i class="fas fa-pause-circle"></i>Pause</button>
+                    <button id="next-step-btn" class="control-button text-md" disabled><i class="fas fa-forward-step"></i>Next</button>
+                </div>
+            </aside>
+
+            <section class="lg:w-2/3 xl:w-3/4 flex-grow flex flex-col gap-6">
+                <div class="flex flex-col space-y-2">
+                    <div id="progress-bar-container">
+                        <div id="progress-bar">0%</div>
+                    </div>
+                    <div id="step-counter">Step 0 / ~0</div>
+                </div>
+                
+                <div id="visualization-area" class="h-80 md:h-[26rem] p-4 rounded-xl shadow-lg flex items-end justify-center space-x-1 overflow-x-auto overflow-y-hidden relative">
+                    <p class="text-gray-500 self-center comic-text text-lg">Let's sort some stuff! Enter your items and click Go!</p>
+                </div>
+
+                <div id="explanation-area" class="h-auto min-h-[10rem] bg-white p-6 rounded-xl shadow-lg border border-slate-200">
+                    <h3 class="text-xl font-semibold text-slate-700 comic-text">The Story of the Sort 🤔</h3>
+                    <div id="explanation-text" class="text-slate-600 leading-relaxed mt-3 text-sm">Pick an adventure, give me some items, and let's see the sorting magic unfold!</div>
+                </div>
+            </section>
+        </div>
+
+        <div id="info-code-panel-container" class="mt-8 w-full"> 
+            <button id="toggle-info-panel-btn" class="w-full p-3 bg-slate-200 hover:bg-slate-300 rounded-lg text-slate-700 font-semibold comic-text text-md transition-colors flex items-center justify-center gap-2 border border-slate-300">
+                <i class="fas fa-book-open"></i> Learn More About <span id="current-algo-name-info">This Algorithm</span> <i id="info-panel-icon" class="fas fa-chevron-down ml-1 transition-transform duration-300"></i>
+            </button>
+            <div id="info-code-panel" class="hidden mt-0 overflow-hidden transition-all duration-500 ease-in-out max-h-0 bg-white rounded-b-lg border border-t-0 border-slate-200 shadow-md"> 
+                <div class="flex border-b border-slate-300"> 
+                    <button data-tab="learn" class="info-code-tab active"><i class="fas fa-lightbulb"></i> Learn</button>
+                    <button data-tab="code" class="info-code-tab"><i class="fas fa-laptop-code"></i> Code</button>
+                </div>
+                <div id="learn-content" class="info-code-content">
+                    Select an algorithm to see its details.
+                </div>
+                <div id="code-content" class="info-code-content hidden">
+                    <pre id="pseudo-code-area">Select an algorithm to see its pseudo-code.</pre>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="text-center text-sm text-slate-500 py-5 mt-8 comic-text font-normal">
+            DSA Learning Universe &copy; 2025. Sorting Made Fun & Easy!
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
